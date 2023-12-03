@@ -6,5 +6,6 @@ edition = "2021"
 
 members = [
     "commons",
-    "day_1"
+    "day_1",
+    "day_2"
 ]
