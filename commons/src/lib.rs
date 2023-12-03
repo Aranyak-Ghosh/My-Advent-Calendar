@@ -1,18 +1,17 @@
 use std::fmt::Debug;
 
-pub struct Answer {
-    inner: Box<dyn std::fmt::Debug>,
+#[derive(PartialEq)]
+pub struct Answer<T> {
+    inner: T,
 }
 
-impl From<u128> for Answer {
-    fn from(val: u128) -> Self {
-        Answer {
-            inner: Box::new(val),
-        }
+impl<T> Answer<T> {
+    pub fn new(val: T) -> Self {
+        Self { inner: val }
     }
 }
 
-impl Debug for Answer {
+impl<T: Debug + PartialEq> Debug for Answer<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Answer")
             .field("value", &self.inner)
@@ -21,7 +20,9 @@ impl Debug for Answer {
 }
 
 pub trait Solution {
-    fn part_a(&self) -> Answer;
+    type Item: Debug + PartialEq;
 
-    fn part_b(&self) -> Answer;
+    fn part_a(&self) -> Answer<Self::Item>;
+
+    fn part_b(&self) -> Answer<Self::Item>;
 }
