@@ -39,17 +39,18 @@ impl Solution for DayOne {
         let accumulator: u128 = reader.lines().fold(0_u128, |acc, line| {
             let line = line.map(|l| l.trim().to_string()).unwrap();
             let mut num_iter = Vec::<u32>::new();
-            let enumerator = line.chars().enumerate();
-            for (i, c) in enumerator {
+            let mut enumerator = line.chars().enumerate();
+
+            while let Some((i, c)) = enumerator.next() {
                 if c.is_ascii_digit() {
                     num_iter.push(c.to_digit(BASE_10_RADIX).unwrap());
                 } else {
                     for (j, alpha_digit) in DIGITS.iter().enumerate() {
                         if line[i..].starts_with(alpha_digit) {
                             num_iter.push(j as u32 + 1);
-                            // ideally no reason to check every character when substring match is found
-                            // but skipping enumerator is not possible within the
-                            // enumerator.skip(alpha_digit.len());
+                            // Since we are already at index i and we want to advance to i + alpha_digit.len() - 1,
+                            // we need to move to advance by alpha_digit.len() - 2 elements
+                            enumerator.nth(alpha_digit.len() - 2);
                         }
                     }
                 }
