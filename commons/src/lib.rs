@@ -30,7 +30,7 @@ impl<T: Debug + PartialEq + Display> Display for Answer<T> {
 pub trait Solution {
     type Item: Debug + PartialEq;
 
-    fn part_a(&self) -> Answer<Self::Item>;
+    fn part_a(&mut self) -> Answer<Self::Item>;
 
-    fn part_b(&self) -> Answer<Self::Item>;
+    fn part_b(&mut self) -> Answer<Self::Item>;
 }

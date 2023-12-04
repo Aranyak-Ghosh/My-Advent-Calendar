@@ -122,7 +122,7 @@ impl DayTwo {
 }
 impl Solution for DayTwo {
     type Item = u128;
-    fn part_a(&self) -> Answer<u128> {
+    fn part_a(&mut self) -> Answer<u128> {
         let reader = BufReader::new(&self.input_file);
 
         let accumulator: u128 = reader.lines().fold(0_u128, |acc, line| {
@@ -139,7 +139,7 @@ impl Solution for DayTwo {
         Answer::new(accumulator)
     }
 
-    fn part_b(&self) -> Answer<u128> {
+    fn part_b(&mut self) -> Answer<u128> {
         let reader = BufReader::new(&self.input_file);
 
         let accumulator: u128 = reader.lines().fold(0_u128, |acc, line| {
